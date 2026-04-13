@@ -32,12 +32,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Zustand store exists with domain slices (resume, jobDescription, keywords, score, ui) and components can read/write to them
   4. TypeScript types for Resume, JobDescription, KeywordSet, Keyword, and ScoreResult are defined and importable
   5. A storage adapter interface exists with a working localStorage implementation that persists and retrieves data across page reloads
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
-- [ ] 01-03: TBD
+- [ ] 01-01-PLAN.md — Scaffold Next.js 16, install dependencies, configure Tailwind v4 + shadcn + Vitest
+- [ ] 01-02-PLAN.md — Define Zod schemas, Zustand store with 5 domain slices, localStorage storage adapter
+- [ ] 01-03-PLAN.md — Build responsive three-panel layout (desktop resizable + mobile tabbed)
 
 **UI hint**: yes
 
@@ -158,7 +158,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Layout | 0/3 | Not started | - |
+| 1. Foundation & Layout | 0/3 | Planned | - |
 | 2. Resume Editor & PDF | 0/3 | Not started | - |
 | 3. Job Description & ATS Scoring | 0/3 | Not started | - |
 | 4. AI Suggestions, Error Handling & Accessibility | 0/3 | Not started | - |
