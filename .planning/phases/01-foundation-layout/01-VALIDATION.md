@@ -39,9 +39,9 @@ created: 2026-04-13
 | Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
 | 01-01-01 | 01 | 1 | FNDN-01 | — | N/A | build | `pnpm build` | ❌ W0 | ⬜ pending |
-| 01-02-01 | 02 | 1 | FNDN-05 | — | N/A | unit | `pnpm vitest run src/types` | ❌ W0 | ⬜ pending |
-| 01-02-02 | 02 | 1 | FNDN-03 | — | N/A | unit | `pnpm vitest run src/stores` | ❌ W0 | ⬜ pending |
-| 01-02-03 | 02 | 1 | FNDN-04 | — | N/A | unit | `pnpm vitest run src/lib/storage` | ❌ W0 | ⬜ pending |
+| 01-02-01 | 02 | 2 | FNDN-05 | — | N/A | unit | `pnpm vitest run src/__tests__/types.test.ts` | ❌ W0 | ⬜ pending |
+| 01-02-02 | 02 | 2 | FNDN-03 | — | N/A | unit | `pnpm vitest run src/__tests__/store.test.ts` | ❌ W0 | ⬜ pending |
+| 01-02-03 | 02 | 2 | FNDN-04 | — | N/A | unit | `pnpm vitest run src/__tests__/storage.test.ts` | ❌ W0 | ⬜ pending |
 | 01-03-01 | 03 | 2 | FNDN-02 | — | N/A | build+manual | `pnpm build && pnpm dev` | ❌ W0 | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
