@@ -64,7 +64,7 @@ Requirements for Milestone 1 (core editor) and Milestone 2 (variants + backend).
 - [ ] **ERRH-03**: Browser storage full triggers warning with JSON export backup option
 - [ ] **ERRH-04**: App never blocks user from editing regardless of API status
 
-### Auth & Storage (AUTH) — Milestone 2
+### Auth & Storage (AUTH) -- Milestone 2
 
 - [ ] **AUTH-01**: User can create account and log in (Better Auth with email/password + OAuth)
 - [ ] **AUTH-02**: User session persists across browser refresh
@@ -72,7 +72,7 @@ Requirements for Milestone 1 (core editor) and Milestone 2 (variants + backend).
 - [ ] **AUTH-04**: Resume data persists in PostgreSQL via Drizzle ORM
 - [ ] **AUTH-05**: Storage adapter swaps from localStorage to database without UI code changes
 
-### Variants (VARNT) — Milestone 2
+### Variants (VARNT) -- Milestone 2
 
 - [ ] **VARNT-01**: User can create a master resume containing all experience and skills
 - [ ] **VARNT-02**: User can add multiple job descriptions to generate per-job variants
@@ -83,13 +83,13 @@ Requirements for Milestone 1 (core editor) and Milestone 2 (variants + backend).
 - [ ] **VARNT-07**: User can re-sync variant from updated master with three-way merge conflict resolution
 - [ ] **VARNT-08**: User can export individual variant PDFs or batch-export all
 
-### Templates (TMPL) — Milestone 2
+### Templates (TMPL) -- Milestone 2
 
 - [ ] **TMPL-01**: At least 3 polished professional templates available
 - [ ] **TMPL-02**: All templates are ATS-friendly (single column, standard headings)
 - [ ] **TMPL-03**: User can switch between templates with live preview
 
-### Import (IMPT) — Milestone 2
+### Import (IMPT) -- Milestone 2
 
 - [ ] **IMPT-01**: User can import resume by pasting plain text
 - [ ] **IMPT-02**: User can import/export resume as JSON
@@ -116,7 +116,7 @@ Requirements for Milestone 1 (core editor) and Milestone 2 (variants + backend).
 | Feature | Reason |
 |---------|--------|
 | Cover letter generation | Focus is "resume builder done perfectly," not a career suite |
-| Interview preparation | Depth over breadth — not a career platform |
+| Interview preparation | Depth over breadth -- not a career platform |
 | Application tracking | Not a job board, would dilute focus |
 | LinkedIn optimization | Separate product concern |
 | Job URL scraping ("shadow apply") | Deferred to future exploration after core proven |
@@ -128,13 +128,66 @@ Requirements for Milestone 1 (core editor) and Milestone 2 (variants + backend).
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (Populated during roadmap creation) | | |
+| FNDN-01 | Phase 1 | Pending |
+| FNDN-02 | Phase 1 | Pending |
+| FNDN-03 | Phase 1 | Pending |
+| FNDN-04 | Phase 1 | Pending |
+| FNDN-05 | Phase 1 | Pending |
+| EDIT-01 | Phase 2 | Pending |
+| EDIT-02 | Phase 2 | Pending |
+| EDIT-03 | Phase 2 | Pending |
+| EDIT-04 | Phase 2 | Pending |
+| EDIT-05 | Phase 2 | Pending |
+| EDIT-06 | Phase 2 | Pending |
+| EDIT-07 | Phase 2 | Pending |
+| JDSC-01 | Phase 3 | Pending |
+| JDSC-02 | Phase 3 | Pending |
+| JDSC-03 | Phase 3 | Pending |
+| JDSC-04 | Phase 3 | Pending |
+| JDSC-05 | Phase 3 | Pending |
+| SCORE-01 | Phase 3 | Pending |
+| SCORE-02 | Phase 3 | Pending |
+| SCORE-03 | Phase 3 | Pending |
+| SCORE-04 | Phase 3 | Pending |
+| SCORE-05 | Phase 3 | Pending |
+| SCORE-06 | Phase 3 | Pending |
+| AISG-01 | Phase 4 | Pending |
+| AISG-02 | Phase 4 | Pending |
+| AISG-03 | Phase 4 | Pending |
+| AISG-04 | Phase 4 | Pending |
+| ERRH-01 | Phase 4 | Pending |
+| ERRH-02 | Phase 4 | Pending |
+| ERRH-03 | Phase 4 | Pending |
+| ERRH-04 | Phase 4 | Pending |
+| A11Y-01 | Phase 4 | Pending |
+| A11Y-02 | Phase 4 | Pending |
+| A11Y-03 | Phase 4 | Pending |
+| A11Y-04 | Phase 4 | Pending |
+| AUTH-01 | Phase 5 | Pending |
+| AUTH-02 | Phase 5 | Pending |
+| AUTH-03 | Phase 5 | Pending |
+| AUTH-04 | Phase 5 | Pending |
+| AUTH-05 | Phase 5 | Pending |
+| VARNT-01 | Phase 6 | Pending |
+| VARNT-02 | Phase 6 | Pending |
+| VARNT-03 | Phase 6 | Pending |
+| VARNT-04 | Phase 6 | Pending |
+| VARNT-05 | Phase 6 | Pending |
+| VARNT-06 | Phase 6 | Pending |
+| VARNT-07 | Phase 6 | Pending |
+| VARNT-08 | Phase 6 | Pending |
+| TMPL-01 | Phase 7 | Pending |
+| TMPL-02 | Phase 7 | Pending |
+| TMPL-03 | Phase 7 | Pending |
+| IMPT-01 | Phase 7 | Pending |
+| IMPT-02 | Phase 7 | Pending |
+| IMPT-03 | Phase 7 | Pending |
 
 **Coverage:**
-- v1 requirements: 45 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 45
+- v1 requirements: 59 total
+- Mapped to phases: 59
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-04-10*
-*Last updated: 2026-04-10 after initial definition*
+*Last updated: 2026-04-13 after roadmap creation*
