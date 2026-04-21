@@ -9,19 +9,19 @@ export function MobileLayout() {
       <TabsList className="w-full justify-start rounded-none border-b border-border bg-muted px-4">
         <TabsTrigger
           value="jd"
-          className="text-[13px] font-semibold text-muted-foreground data-active:text-foreground data-active:shadow-none data-active:border-b-2 data-active:border-primary rounded-none"
+          className="text-[13px] font-semibold text-muted-foreground data-active:text-foreground data-active:shadow-none data-active:bg-transparent data-active:border-b-2 data-active:border-primary rounded-none"
         >
           Job Description
         </TabsTrigger>
         <TabsTrigger
           value="editor"
-          className="text-[13px] font-semibold text-muted-foreground data-active:text-foreground data-active:shadow-none data-active:border-b-2 data-active:border-primary rounded-none"
+          className="text-[13px] font-semibold text-muted-foreground data-active:text-foreground data-active:shadow-none data-active:bg-transparent data-active:border-b-2 data-active:border-primary rounded-none"
         >
           Editor
         </TabsTrigger>
         <TabsTrigger
           value="score"
-          className="text-[13px] font-semibold text-muted-foreground data-active:text-foreground data-active:shadow-none data-active:border-b-2 data-active:border-primary rounded-none"
+          className="text-[13px] font-semibold text-muted-foreground data-active:text-foreground data-active:shadow-none data-active:bg-transparent data-active:border-b-2 data-active:border-primary rounded-none"
         >
           Score
         </TabsTrigger>
