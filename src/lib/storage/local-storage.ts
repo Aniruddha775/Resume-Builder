@@ -47,7 +47,11 @@ export class LocalStorageAdapter implements StorageAdapter {
         if (raw) {
           try {
             const parsed = ResumeSchema.safeParse(JSON.parse(raw))
-            if (parsed.success) resumes.push(parsed.data)
+            if (!parsed.success) {
+              console.warn(`Invalid resume data in localStorage for key ${key}:`, parsed.error)
+              continue
+            }
+            resumes.push(parsed.data)
           } catch {
             // skip corrupt entries silently
           }
@@ -99,6 +103,9 @@ export class LocalStorageAdapter implements StorageAdapter {
   }
 
   async setSchemaVersion(version: number): Promise<void> {
+    if (!Number.isInteger(version) || version < 0) {
+      throw new Error(`setSchemaVersion: expected non-negative integer, got ${version}`)
+    }
     localStorage.setItem(SCHEMA_VERSION_KEY, String(version))
   }
 
@@ -126,7 +133,12 @@ export class LocalStorageAdapter implements StorageAdapter {
   }
 
   async importAll(jsonString: string): Promise<void> {
-    const data = JSON.parse(jsonString) as Record<string, unknown>
+    let data: Record<string, unknown>
+    try {
+      data = JSON.parse(jsonString) as Record<string, unknown>
+    } catch {
+      throw new Error('importAll: invalid JSON string')
+    }
     for (const [key, value] of Object.entries(data)) {
       if (key.startsWith(STORAGE_PREFIX)) {
         // Primitives (strings, numbers) are stored as-is; objects/arrays are JSON-encoded

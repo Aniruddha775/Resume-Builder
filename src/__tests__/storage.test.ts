@@ -196,4 +196,9 @@ describe('LocalStorageAdapter', () => {
     const results = await adapter.listResumes()
     expect(results).toEqual([])
   })
+
+  // Test 16: importAll throws on malformed JSON
+  it('importAll throws on malformed JSON', async () => {
+    await expect(adapter.importAll('not-valid-json{')).rejects.toThrow('importAll: invalid JSON string')
+  })
 })
