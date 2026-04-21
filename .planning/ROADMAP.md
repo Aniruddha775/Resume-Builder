@@ -35,9 +35,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Scaffold Next.js 16, install dependencies, configure Tailwind v4 + shadcn + Vitest
-- [ ] 01-02-PLAN.md — Define Zod schemas, Zustand store with 5 domain slices, localStorage storage adapter
-- [ ] 01-03-PLAN.md — Build responsive three-panel layout (desktop resizable + mobile tabbed)
+- [x] 01-01-PLAN.md — Scaffold Next.js 16, install dependencies, configure Tailwind v4 + shadcn + Vitest
+- [x] 01-02-PLAN.md — Define Zod schemas, Zustand store with 5 domain slices, localStorage storage adapter
+- [x] 01-03-PLAN.md — Build responsive three-panel layout (desktop resizable + mobile tabbed)
 
 **UI hint**: yes
 
