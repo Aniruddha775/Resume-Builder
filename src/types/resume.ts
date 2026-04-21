@@ -3,9 +3,9 @@ import { z } from 'zod'
 export const ContactInfoSchema = z.object({
   fullName: z.string(),
   email: z.string().email(),
-  phone: z.string(),
+  phone: z.string().min(7),
   location: z.string(),
-  linkedIn: z.string().optional(),
+  linkedIn: z.string().url().optional(),
   website: z.string().url().optional(),
 })
 
@@ -17,7 +17,10 @@ export const ExperienceSchema = z.object({
   endDate: z.string().nullable(), // null if current
   current: z.boolean(),
   bullets: z.array(z.string()),
-})
+}).refine(
+  (v) => v.current === (v.endDate === null),
+  { message: 'current must be true if and only if endDate is null' }
+)
 
 export const EducationSchema = z.object({
   id: z.string().uuid(),

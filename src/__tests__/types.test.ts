@@ -147,6 +147,32 @@ describe('ExperienceSchema', () => {
     const result = ExperienceSchema.parse(withEnd)
     expect(result.endDate).toBe('2023-12')
   })
+
+  it('rejects experience where current is true but endDate is not null', () => {
+    const result = ExperienceSchema.safeParse({
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      company: 'Acme',
+      title: 'Engineer',
+      startDate: '2020-01',
+      endDate: '2023-01',  // non-null
+      current: true,        // contradicts endDate
+      bullets: [],
+    })
+    expect(result.success).toBe(false)
+  })
+
+  it('rejects experience where current is false but endDate is null', () => {
+    const result = ExperienceSchema.safeParse({
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      company: 'Acme',
+      title: 'Engineer',
+      startDate: '2020-01',
+      endDate: null,        // null implies current
+      current: false,       // contradicts endDate
+      bullets: [],
+    })
+    expect(result.success).toBe(false)
+  })
 })
 
 // ---------------------------------------------------------------------------

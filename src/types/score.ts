@@ -2,11 +2,11 @@ import { z } from 'zod'
 
 export const ScoreCategoryBreakdownSchema = z.object({
   category: z.string(),
-  weight: z.number(),
-  matched: z.number(),
-  total: z.number(),
-  percentage: z.number(),
-  weightedScore: z.number(),
+  weight: z.number().min(0).max(1),
+  matched: z.number().int().min(0),
+  total: z.number().int().min(0),
+  percentage: z.number().min(0).max(100),
+  weightedScore: z.number().min(0),
 })
 
 export const ScoreResultSchema = z.object({

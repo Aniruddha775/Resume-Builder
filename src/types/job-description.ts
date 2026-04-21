@@ -2,11 +2,14 @@ import { z } from 'zod'
 
 export const KeywordCategorySchema = z.enum(['hard', 'preferred', 'tools', 'soft'])
 
+export const ResumeSectionSchema = z.enum(['contactInfo', 'summary', 'experience', 'education', 'skills'])
+export type ResumeSection = z.infer<typeof ResumeSectionSchema>
+
 export const KeywordSchema = z.object({
   term: z.string(),
   category: KeywordCategorySchema,
   matched: z.boolean(),
-  matchedIn: z.string().optional(),
+  matchedIn: ResumeSectionSchema.optional(),
 })
 
 export const KeywordSetSchema = z.object({
