@@ -7,9 +7,9 @@ export function DesktopLayout() {
   return (
     <ResizablePanelGroup orientation="horizontal" className="h-full">
       <ResizablePanel defaultSize={27} minSize={15}>
-        <section aria-label="Job Description" className="flex h-full flex-col overflow-y-auto">
+        <section aria-labelledby="jd-panel-heading" className="flex h-full flex-col overflow-y-auto">
           <div className="px-4 py-3">
-            <span className="text-[13px] font-semibold text-foreground">Job Description</span>
+            <h2 id="jd-panel-heading" className="text-[13px] font-semibold text-foreground">Job Description</h2>
           </div>
           <div className="flex-1">
             <PanelPlaceholder
@@ -24,9 +24,9 @@ export function DesktopLayout() {
       <ResizableHandle withHandle />
 
       <ResizablePanel defaultSize={46} minSize={20}>
-        <section aria-label="Resume Editor" className="flex h-full flex-col overflow-y-auto">
+        <section aria-labelledby="editor-panel-heading" className="flex h-full flex-col overflow-y-auto">
           <div className="px-4 py-3">
-            <span className="text-[13px] font-semibold text-foreground">Resume Editor</span>
+            <h2 id="editor-panel-heading" className="text-[13px] font-semibold text-foreground">Resume Editor</h2>
           </div>
           <div className="flex-1">
             <PanelPlaceholder
@@ -41,9 +41,9 @@ export function DesktopLayout() {
       <ResizableHandle withHandle />
 
       <ResizablePanel defaultSize={27} minSize={15}>
-        <section aria-label="ATS Score" className="flex h-full flex-col overflow-y-auto">
+        <section aria-labelledby="score-panel-heading" className="flex h-full flex-col overflow-y-auto">
           <div className="px-4 py-3">
-            <span className="text-[13px] font-semibold text-foreground">ATS Score</span>
+            <h2 id="score-panel-heading" className="text-[13px] font-semibold text-foreground">ATS Score</h2>
           </div>
           <div className="flex-1">
             <PanelPlaceholder
