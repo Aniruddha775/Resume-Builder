@@ -12,11 +12,14 @@ Live ATS scoring that updates as you type, powered by a two-stage engine (one-ti
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Three-panel editor layout (JD input | resume editor | ATS score panel) — Validated in Phase 1: Foundation & Layout
+- [x] Zustand state management with 5 domain slices + localStorage persistence — Validated in Phase 1: Foundation & Layout
+- [x] Zod v4 type schemas as single source of truth for all data models — Validated in Phase 1: Foundation & Layout
+- [x] Responsive layout: desktop resizable panels + mobile tabbed navigation — Validated in Phase 1: Foundation & Layout
 
 ### Active
 
-- [ ] Three-panel editor layout (JD input | resume editor | ATS score panel)
+- [ ] Job description keyword extraction via LLM API (one-time call on paste)
 - [ ] Job description keyword extraction via LLM API (one-time call on paste)
 - [ ] Resume editor with structured sections (contact, summary, experience, education, skills)
 - [ ] Live ATS scoring engine (deterministic, local, <5ms per recomputation)
@@ -91,4 +94,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-10 after initialization*
+*Last updated: 2026-04-21 after Phase 1 completion*
