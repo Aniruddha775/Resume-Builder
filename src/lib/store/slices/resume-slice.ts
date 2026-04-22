@@ -1,6 +1,7 @@
 import type { StateCreator } from 'zustand'
 import type { AppState } from '../index'
 import type { Resume, Experience, Education, Skills } from '@/types/resume'
+import { tiptapJsonToSections } from '@/lib/tiptap/schema'
 
 export interface ResumeSlice {
   resume: Resume | null
@@ -137,10 +138,13 @@ export const createResumeSlice: StateCreator<
       state.resume.sections.skills.splice(index, 1)
       state.resume.updatedAt = new Date().toISOString()
     }),
-  setResumeFromTiptap: (_tiptapJson) => {
+  setResumeFromTiptap: (tiptapJson) =>
     set((state) => {
       if (!state.resume) return
+      const patch = tiptapJsonToSections(tiptapJson, state.resume.sections)
+      if (patch.summary !== undefined) state.resume.sections.summary = patch.summary
+      if (patch.experience !== undefined) state.resume.sections.experience = patch.experience
+      if (patch.education !== undefined) state.resume.sections.education = patch.education
       state.resume.updatedAt = new Date().toISOString()
-    })
-  },
+    }),
 })
