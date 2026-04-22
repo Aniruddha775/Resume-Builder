@@ -23,7 +23,7 @@ export function ContactForm() {
         </div>
         <div>
           <Label htmlFor="contact-phone" className="text-[13px] font-semibold">Phone</Label>
-          <Input id="contact-phone" value={contact.phone}
+          <Input id="contact-phone" type="tel" value={contact.phone}
             onChange={(e) => updateContactInfo({ phone: e.target.value })} />
         </div>
         <div>
@@ -33,12 +33,12 @@ export function ContactForm() {
         </div>
         <div className="md:col-span-2">
           <Label htmlFor="contact-linkedIn" className="text-[13px] font-semibold">LinkedIn</Label>
-          <Input id="contact-linkedIn" placeholder="LinkedIn URL (optional)" value={contact.linkedIn ?? ''}
+          <Input id="contact-linkedIn" type="url" placeholder="LinkedIn URL (optional)" value={contact.linkedIn ?? ''}
             onChange={(e) => updateContactInfo({ linkedIn: e.target.value || undefined })} />
         </div>
         <div className="md:col-span-2">
           <Label htmlFor="contact-website" className="text-[13px] font-semibold">Website</Label>
-          <Input id="contact-website" placeholder="Website URL (optional)" value={contact.website ?? ''}
+          <Input id="contact-website" type="url" placeholder="Website URL (optional)" value={contact.website ?? ''}
             onChange={(e) => updateContactInfo({ website: e.target.value || undefined })} />
         </div>
       </div>
