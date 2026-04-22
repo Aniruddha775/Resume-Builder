@@ -51,12 +51,13 @@ Plans:
   3. A live PDF preview renders below or beside the editor, updating within ~800ms after the user stops typing
   4. User can click "Export PDF" and download an ATS-friendly PDF (single column, text-selectable, standard headings, no images) with no paywall or watermark
   5. Resume data autosaves to localStorage every 10 seconds and survives page reloads
-**Plans**: TBD
+**Plans:** 4 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
-- [ ] 02-03: TBD
+- [ ] 02-01-PLAN.md — Install Tiptap 3 + @react-pdf/renderer + shadcn components, extend ResumeSlice CRUD, sample resume fixture, debounce + autosave hooks (Wave 1)
+- [ ] 02-02-PLAN.md — Tiptap custom node extensions + JSON↔Sections mappers + ResumeEditor + ContactForm + Experience/Education/Skills sections with CRUD (Wave 2, parallel with 02-03)
+- [ ] 02-03-PLAN.md — Inter font registration + ModernCleanTemplate + PdfPreview (800ms debounce) + ExportPdfButton + PdfPreviewPanel (Wave 2, parallel with 02-02)
+- [ ] 02-04-PLAN.md — Layout integration (mount editor + preview panels), SavedIndicator, ResumeBootstrap, autosave wiring, human verification (Wave 3)
 
 **UI hint**: yes
 
@@ -159,7 +160,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Layout | 0/3 | Planned | - |
-| 2. Resume Editor & PDF | 0/3 | Not started | - |
+| 2. Resume Editor & PDF | 0/4 | Planned | - |
 | 3. Job Description & ATS Scoring | 0/3 | Not started | - |
 | 4. AI Suggestions, Error Handling & Accessibility | 0/3 | Not started | - |
 | 5. Auth & Persistent Storage | 0/3 | Not started | - |
