@@ -16,6 +16,7 @@
   "dependencies": {
     "@base-ui/react": "^1.4.0",
     "@react-pdf/renderer": "4.5.1",
+    "@tiptap/core": "3.22.4",
     "@tiptap/extension-placeholder": "3.22.4",
     "@tiptap/pm": "3.22.4",
     "@tiptap/react": "3.22.4",
