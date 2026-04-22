@@ -63,9 +63,10 @@ describe('tiptapJsonToSections', () => {
     expect(result.experience?.[0].bullets).toEqual(['Led migration'])
   })
 
-  it('returns empty values for empty doc', () => {
-    const result = tiptapJsonToSections({ type: 'doc', content: [] }, EMPTY_SECTIONS)
-    expect(result.summary).toBe('')
+  it('returns existing summary when doc has no summarySection', () => {
+    const existing = { ...EMPTY_SECTIONS, summary: 'Previous summary' }
+    const result = tiptapJsonToSections({ type: 'doc', content: [] }, existing)
+    expect(result.summary).toBe('Previous summary')  // fallback to existing
     expect(result.experience).toEqual([])
   })
 

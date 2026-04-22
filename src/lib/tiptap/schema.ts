@@ -3,8 +3,11 @@ import type { ResumeSections } from '@/types/resume'
 function extractInlineText(inline: any[] | undefined): string {
   if (!inline) return ''
   return inline
-    .filter((n) => n?.type === 'text' && typeof n.text === 'string')
-    .map((n) => n.text as string)
+    .map((n) => {
+      if (n?.type === 'text' && typeof n.text === 'string') return n.text
+      if (n?.type === 'hardBreak') return '\n'
+      return ''
+    })
     .join('')
 }
 
@@ -49,6 +52,9 @@ export function tiptapJsonToSections(
     })
   }
 
+  // Phase 2: education entries have no Tiptap-editable prose content (only marker nodes).
+  // Education data is entirely form-controlled. If Phase 4 adds prose to education entries,
+  // this line must be updated to extract from the educationList node.
   const education = existing.education
 
   return { summary, experience, education }
