@@ -85,8 +85,8 @@ describe('tiptapJsonToSections', () => {
 describe('sectionsToTiptapJson', () => {
   it('builds a doc with summarySection containing the summary text', () => {
     const sections: ResumeSections = { ...EMPTY_SECTIONS, summary: 'My summary' }
-    const doc = sectionsToTiptapJson(sections) as any
-    const summaryNode = doc.content.find((n: any) => n.type === 'summarySection')
+    const doc = sectionsToTiptapJson(sections) as { content: Array<{ type: string; content: Array<{ content: Array<{ text: string }> }> }> }
+    const summaryNode = doc.content.find((n) => n.type === 'summarySection')
     expect(summaryNode).toBeDefined()
     expect(summaryNode.content[0].content[0].text).toBe('My summary')
   })

@@ -18,7 +18,7 @@ export const resumeExtensions = [
     strike: false,
   }),
   Placeholder.configure({
-    placeholder: ({ node, parent }: { node: any; parent?: any }) => {
+    placeholder: ({ node, parent }: { node: { type: { name: string } }; parent?: { type: { name: string } } | null }) => {
       if (node.type.name === 'summarySection') return 'Write a 2-3 sentence professional summary...'
       if (node.type.name === 'paragraph' && parent?.type.name === 'summarySection') {
         return 'Write a 2-3 sentence professional summary...'

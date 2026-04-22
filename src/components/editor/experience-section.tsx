@@ -1,12 +1,9 @@
 'use client'
-import type { Editor } from '@tiptap/react'
 import { useAppStore } from '@/lib/store'
 import { AddEntryButton } from './add-entry-button'
 import { ExperienceEntry } from './experience-entry'
 
-interface ExperienceSectionProps { editor: Editor | null }
-
-export function ExperienceSection({ editor: _editor }: ExperienceSectionProps) {
+export function ExperienceSection() {
   const experience = useAppStore((s) => s.resume?.sections.experience ?? [])
   const addExperience = useAppStore((s) => s.addExperience)
   return (

@@ -1,6 +1,6 @@
 'use client'
 import { useEditor, type Content } from '@tiptap/react'
-import { useRef } from 'react'
+import { useState } from 'react'
 import { useAppStore } from '@/lib/store'
 import { resumeExtensions } from '@/lib/tiptap/extensions'
 import { sectionsToTiptapJson } from '@/lib/tiptap/schema'
@@ -14,14 +14,13 @@ export function ResumeEditor() {
   const resume = useAppStore((s) => s.resume)
   const setResumeFromTiptap = useAppStore((s) => s.setResumeFromTiptap)
 
-  const initialContentRef = useRef<Content | undefined>(undefined)
-  if (initialContentRef.current === undefined && resume) {
-    initialContentRef.current = sectionsToTiptapJson(resume.sections) as Content
-  }
+  const [initialContent] = useState<Content | undefined>(() =>
+    resume ? (sectionsToTiptapJson(resume.sections) as Content) : undefined
+  )
 
   const editor = useEditor({
     extensions: resumeExtensions,
-    content: initialContentRef.current,
+    content: initialContent,
     immediatelyRender: false,
     shouldRerenderOnTransaction: true,
     editorProps: {
@@ -40,7 +39,7 @@ export function ResumeEditor() {
     <div className="flex flex-col pb-8">
       <ContactForm />
       <SummarySection editor={editor} />
-      <ExperienceSection editor={editor} />
+      <ExperienceSection />
       <EducationSection />
       <SkillsSection />
     </div>

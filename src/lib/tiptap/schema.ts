@@ -1,6 +1,14 @@
 import type { ResumeSections } from '@/types/resume'
 
-function extractInlineText(inline: any[] | undefined): string {
+type TiptapNode = {
+  type: string
+  content?: TiptapNode[]
+  attrs?: Record<string, unknown>
+  text?: string
+  marks?: Array<{ type: string }>
+}
+
+function extractInlineText(inline: TiptapNode[] | undefined): string {
   if (!inline) return ''
   return inline
     .map((n) => {
@@ -11,21 +19,21 @@ function extractInlineText(inline: any[] | undefined): string {
     .join('')
 }
 
-function extractBullets(bulletListNode: any): string[] {
+function extractBullets(bulletListNode: TiptapNode): string[] {
   if (!bulletListNode || bulletListNode.type !== 'bulletList' || !Array.isArray(bulletListNode.content)) return []
   return bulletListNode.content
-    .filter((n: any) => n?.type === 'listItem')
-    .map((listItem: any) => {
-      const firstPara = listItem.content?.find((c: any) => c?.type === 'paragraph')
+    .filter((n) => n?.type === 'listItem')
+    .map((listItem) => {
+      const firstPara = listItem.content?.find((c) => c?.type === 'paragraph')
       return extractInlineText(firstPara?.content)
     })
 }
 
-function extractSummary(summarySectionNode: any): string {
+function extractSummary(summarySectionNode: TiptapNode): string {
   if (!summarySectionNode || !Array.isArray(summarySectionNode.content)) return ''
   return summarySectionNode.content
-    .filter((n: any) => n?.type === 'paragraph')
-    .map((p: any) => extractInlineText(p.content))
+    .filter((n) => n?.type === 'paragraph')
+    .map((p) => extractInlineText(p.content))
     .join('\n')
 }
 
@@ -33,7 +41,7 @@ export function tiptapJsonToSections(
   json: unknown,
   existing: ResumeSections,
 ): Partial<ResumeSections> {
-  const doc = json as { type?: string; content?: any[] } | null
+  const doc = json as { type?: string; content?: TiptapNode[] } | null
   if (!doc || !Array.isArray(doc.content)) return {}
 
   const summaryNode = doc.content.find((n) => n?.type === 'summarySection')
@@ -42,12 +50,12 @@ export function tiptapJsonToSections(
   const experienceListNode = doc.content.find((n) => n?.type === 'experienceList')
   let experience = existing.experience
   if (experienceListNode && Array.isArray(experienceListNode.content)) {
-    const entryNodes = experienceListNode.content.filter((n: any) => n?.type === 'experienceEntry')
+    const entryNodes = experienceListNode.content.filter((n) => n?.type === 'experienceEntry')
     experience = existing.experience.map((exp) => {
-      const match = entryNodes.find((n: any) => n.attrs?.entryId === exp.id)
+      const match = entryNodes.find((n) => n.attrs?.entryId === exp.id)
       if (!match) return exp
-      const bulletListChild = match.content?.find((c: any) => c?.type === 'bulletList')
-      const bullets = extractBullets(bulletListChild)
+      const bulletListChild = match.content?.find((c) => c?.type === 'bulletList')
+      const bullets = bulletListChild ? extractBullets(bulletListChild) : []
       return { ...exp, bullets }
     })
   }
