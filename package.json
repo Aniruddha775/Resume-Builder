@@ -15,6 +15,11 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.4.0",
+    "@react-pdf/renderer": "4.5.1",
+    "@tiptap/extension-placeholder": "3.22.4",
+    "@tiptap/pm": "3.22.4",
+    "@tiptap/react": "3.22.4",
+    "@tiptap/starter-kit": "3.22.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "immer": "^11.1.4",
@@ -41,10 +46,10 @@
     "jsdom": "^29.0.2",
     "prettier": "^3.8.2",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "shadcn": "^4.2.0",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vite-tsconfig-paths": "^6.1.1",
-    "shadcn": "^4.2.0",
     "vitest": "^4.1.4"
   }
 }
