@@ -33,7 +33,7 @@ export const useAppStore = create<AppState>()(
         name: 'rese-store',
         version: 1,
         partialize: (state) => ({
-          resume: state.resume,
+          // resume lives in LocalStorageAdapter — single source of truth
           jobDescription: state.jobDescription,
           keywords: state.keywords,
           // score is derived, not persisted
