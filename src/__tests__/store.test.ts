@@ -107,6 +107,7 @@ beforeEach(() => {
     ui: {
       activePanel: 'editor',
       isMobile: false,
+      lastSavedToken: 0,
     },
   })
 })

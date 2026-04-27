@@ -7,9 +7,11 @@ export interface UISlice {
   ui: {
     activePanel: PanelId
     isMobile: boolean
+    lastSavedToken: number
   }
   setActivePanel: (panel: PanelId) => void
   setIsMobile: (isMobile: boolean) => void
+  bumpLastSaved: () => void
 }
 
 export const createUISlice: StateCreator<
@@ -21,6 +23,7 @@ export const createUISlice: StateCreator<
   ui: {
     activePanel: 'editor',
     isMobile: false,
+    lastSavedToken: 0,
   },
   setActivePanel: (panel) =>
     set((state) => {
@@ -29,5 +32,9 @@ export const createUISlice: StateCreator<
   setIsMobile: (isMobile) =>
     set((state) => {
       state.ui.isMobile = isMobile
+    }),
+  bumpLastSaved: () =>
+    set((state) => {
+      state.ui.lastSavedToken += 1
     }),
 })
