@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
     color: '#000000',
     backgroundColor: '#FFFFFF',
   },
-  name: { fontSize: 22, fontWeight: 700, marginBottom: 4 },
-  contactLine: { fontSize: 9, marginBottom: 16, color: '#000000' },
+  name: { fontSize: 22, fontWeight: 700, marginBottom: 8 },
+  contactLine: { fontSize: 9, marginBottom: 6, color: '#000000' },
   sectionHeading: {
     fontSize: 11,
     fontWeight: 700,
@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderBottomColor: '#000000',
     paddingBottom: 2,
-    marginTop: 16,
-    marginBottom: 8,
+    marginTop: 4,
+    marginBottom: 6,
   },
   body: { fontSize: 10, lineHeight: 1.5 },
   experienceHeader: {
