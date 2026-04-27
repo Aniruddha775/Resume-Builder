@@ -30,12 +30,14 @@ const styles = StyleSheet.create({
   experienceHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
     marginTop: 6,
   },
+  dateCol: { flexShrink: 0, fontSize: 9 },
   companyTitle: { fontSize: 10, fontWeight: 600 },
-  dates: { fontSize: 9 },
-  bullet: { fontSize: 10, marginLeft: 8, marginVertical: 1 },
+  bulletRow: { flexDirection: 'row', marginLeft: 8, marginVertical: 1 },
+  bulletMark: { fontSize: 10, width: 12 },
+  bulletText: { fontSize: 10, flex: 1 },
   eduLine: { fontSize: 10, marginTop: 4 },
   skillsLine: { fontSize: 10, marginTop: 4 },
 })
@@ -74,12 +76,15 @@ export function ModernCleanTemplate({ resume }: { resume: Resume }) {
                     <Text style={styles.companyTitle}>
                       {exp.company}{exp.company && exp.title ? ' — ' : ''}{exp.title}
                     </Text>
-                    <Text style={styles.dates}>
+                    <Text style={styles.dateCol}>
                       {exp.startDate}{(exp.startDate || endLabel) ? ' – ' : ''}{endLabel}
                     </Text>
                   </View>
                   {exp.bullets.map((b, i) => (
-                    <Text key={i} style={styles.bullet}>• {b}</Text>
+                    <View key={i} style={styles.bulletRow}>
+                      <Text style={styles.bulletMark}>•</Text>
+                      <Text style={styles.bulletText}>{b}</Text>
+                    </View>
                   ))}
                 </View>
               )
