@@ -941,32 +941,39 @@ export function ModernCleanTemplate({ resume }: { resume: Resume }) {
 | A6 | The existing `zustand/persist` `rese-store` key will not conflict with the per-resume `rese:resume:{id}` keys from `LocalStorageAdapter` | §Architecture Patterns (bootstrap) | Medium. They're distinct keys, BUT the store also persists `state.resume`, so we have two sources of truth for the same resume. The plan should pick ONE — either drop zustand/persist for `resume` (let `LocalStorageAdapter` own it) or drop `LocalStorageAdapter.saveResume` for now (let zustand/persist own it). Recommend: keep `LocalStorageAdapter` as the source of truth per DESIGN.md and Phase 1 intent; remove `resume` from `zustand/persist` partialize. |
 | A7 | No Inter variable-font file is needed — static TTFs (Regular, SemiBold, Bold) suffice for the PDF template | §Standard Stack | Low. PDF template only uses weights 400, 600, 700. Variable fonts add complexity in react-pdf. |
 
-## Open Questions
+## Open Questions (RESOLVED)
+
+All five open questions below are resolved in the Phase 2 plan set. Resolutions are annotated inline.
 
 1. **Source of truth for resume state: zustand/persist vs. LocalStorageAdapter?**
    - What we know: Phase 1 wired both. `store/index.ts` persists `state.resume` via zustand/persist at key `rese-store`. `LocalStorageAdapter` saves to `rese:resume:{id}`.
    - What's unclear: Which one wins on hydration? What happens if both have data and they disagree?
    - Recommendation: The plan should resolve this in the first task. Recommend keeping `LocalStorageAdapter` as the source of truth (per DESIGN.md vision: "Storage adapter will swap to DB in Milestone 2" — AUTH-05). Remove `resume` from the `partialize` in `store/index.ts`. The bootstrap component calls `adapter.listResumes()` on mount and seeds the store.
+   - **RESOLVED:** LocalStorageAdapter is the source of truth. `resume` is removed from zustand/persist partialize in Plan 01 Task 2. ResumeBootstrap in Plan 04 Task 1 calls `adapter.listResumes()` on mount and seeds SAMPLE_RESUME when empty.
 
 2. **Sample resume ID: stable vs. per-session UUID?**
    - What we know: D-17 says "On first load (no data in localStorage), the store initializes from this fixture."
    - What's unclear: Should `SAMPLE_RESUME.id` be the fixed string `'sample-alex-johnson'` (idempotent, easy to identify) or a new UUID on each first-load?
    - Recommendation: Fixed string. Once the user edits, a new UUID is assigned on next save (or we leave the sample ID — the adapter is resume-keyed, not user-keyed in M1). The plan should specify.
+   - **RESOLVED:** Fixed UUID string `'550e8400-e29b-41d4-a716-446655440000'` used for `SAMPLE_RESUME.id` in Plan 01 Task 3. This satisfies `z.string().uuid()` validation while remaining idempotent across first-load bootstraps.
 
 3. **Does Summary really need to be in Tiptap?**
    - What we know: D-04 lists `SummarySection` as a top-level node. UI-SPEC says Summary is "Tiptap prose area, min 120px."
    - What's unclear: Summary is a single `string` in `ResumeSchema.summary`. Why not a plain `<textarea>`? A Tiptap node adds complexity (paragraph-in-node serialization) for ~1 field.
    - Recommendation: Keep Summary in Tiptap for consistency with the "one editor" model AND to allow Phase 4 AI decorations on summary text. But note the tradeoff in the plan — if implementation gets hairy, a `<textarea>` fallback is acceptable (D-05 already precedents taking things OUT of Tiptap).
+   - **RESOLVED:** Summary stays in Tiptap for Phase 4 AI decoration readiness. Plan 02 Task 1 defines `SummarySectionNode` with `content: 'paragraph+'`; the schema mapper in Plan 02 Task 1 extracts Summary text via `extractSummary()`. No `<textarea>` fallback needed — the implementation remained tractable.
 
 4. **Does the PDF preview need to show page breaks visibly, or just "what you'd export"?**
    - What we know: UI-SPEC shows an iframe-style preview of the PDF.
    - What's unclear: If the resume is 2 pages, does the preview show both? `usePDF` generates the whole blob, so `<iframe src={url}>` will paginate natively via browser PDF viewer.
    - Recommendation: Browser's native iframe PDF viewer handles pagination. No extra work.
+   - **RESOLVED:** Browser's native iframe PDF viewer handles pagination. No extra work required. Plan 03 Task 3 mounts the usePDF object URL in `<iframe src={instance.url} />` — the browser's built-in PDF viewer paginates multi-page resumes for free.
 
 5. **Tiptap extensions to use beyond StarterKit — do we need Underline, Link, Highlight?**
    - What we know: UI-SPEC does not mention any inline formatting toolbar or bubble menu. Resume bullets are plain text (D-07).
    - What's unclear: Will the Summary field want bold or italic? The UI-SPEC doesn't provide any inline formatting UI.
    - Recommendation: No bold/italic/link in Phase 2. Summary is plain text per D-07 logic (serializes cleanly). Disable all inline marks from StarterKit. If bold turns up as desirable, add in Phase 4 when suggestion decorations land.
+   - **RESOLVED:** No bold/italic/link/underline/strike extensions in Phase 2. Plan 02 Task 1 configures StarterKit with `heading: false, blockquote: false, codeBlock: false, code: false, horizontalRule: false, strike: false`. Inline formatting (bold/italic) stays enabled at the StarterKit default but no UI exposes it. Phase 4 will add inline formatting UI when AI suggestion decorations land.
 
 ## Environment Availability
 
