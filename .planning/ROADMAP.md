@@ -71,12 +71,13 @@ Plans:
   3. ATS score (0-100) recalculates within 300ms after user stops typing, using the 5-component weighted algorithm entirely client-side
   4. Score panel shows matched keywords (green) and missing keywords (red) with per-category breakdown percentages
   5. Keyword matching uses a fuzzy alias dictionary so "JS" matches "JavaScript", "React.js" matches "React", etc.
-**Plans**: TBD
+**Plans:** 4 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
-- [ ] 03-03: TBD
+- [ ] 03-01-PLAN.md — Install AI SDK packages + API key store + /api/extract-keywords route handler + JD textarea + keyword chips + api-key-modal + JdInputPanel wired into layouts (Wave 1)
+- [ ] 03-02-PLAN.md — Install Fuse.js + keyword-aliases.json + fuse-matcher + formatting-checker + ats-scorer pure function + useAtsScore hook with 300ms debounce (Wave 1, parallel with 03-01)
+- [ ] 03-03-PLAN.md — Score panel UI: SVG ring + category bars + keyword chip lists + desktop/mobile tab switcher with Score as default tab (Wave 2)
+- [ ] 03-04-PLAN.md — Mount useAtsScore in ResumeBootstrap, integration smoke tests, human verification checkpoint (Wave 3)
 
 **UI hint**: yes
 
@@ -161,7 +162,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 |-------|----------------|--------|-----------|
 | 1. Foundation & Layout | 0/3 | Planned | - |
 | 2. Resume Editor & PDF | 0/4 | Planned | - |
-| 3. Job Description & ATS Scoring | 0/3 | Not started | - |
+| 3. Job Description & ATS Scoring | 0/4 | Planned | - |
 | 4. AI Suggestions, Error Handling & Accessibility | 0/3 | Not started | - |
 | 5. Auth & Persistent Storage | 0/3 | Not started | - |
 | 6. Variants & Dashboard | 0/3 | Not started | - |
