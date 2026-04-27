@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 2 UI-SPEC approved
-last_updated: "2026-04-22T06:24:36.989Z"
-last_activity: 2026-04-21
+stopped_at: Phase 2 complete — human verification approved
+last_updated: "2026-04-27T00:00:00.000Z"
+last_activity: 2026-04-27
 progress:
   total_phases: 7
-  completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
-  percent: 100
+  completed_phases: 2
+  total_plans: 7
+  completed_plans: 7
+  percent: 29
 ---
 
 # Project State
@@ -21,65 +21,66 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-10)
 
 **Core value:** Live ATS scoring that updates as you type, making resume optimization feel like a game instead of a chore.
-**Current focus:** Phase 01 — foundation-layout
+**Current focus:** Phase 03 — Job Description + ATS Scoring
 
 ## Current Position
 
-Phase: 2
+Phase: 3
 Plan: Not started
-Status: Executing Phase 01
-Last activity: 2026-04-21
+Status: Ready to execute
+Last activity: 2026-04-27 — Phase 2 complete, merged to main
 
-Progress: [=.........] 5%
+Progress: [==........] 29%
 
 ## Execution Environment
 
-**Worktree:** C:/Projects/Rese/.worktrees/phase-01
-**Branch:** feature/phase-01-foundation-layout
+**Worktree:** C:/Projects/Rese/.worktrees/phase-03 (to be created)
+**Branch:** feature/phase-03 (to be created)
 **Base branch:** main
 **pnpm PATH:** `export PATH="/c/Users/2445036/AppData/Roaming/npm:$PATH"` (required in bash sessions)
 **SSL note:** Corporate SSL interception — use `NODE_TLS_REJECT_UNAUTHORIZED=0` for shadcn add commands
 
 ## Plan Status
 
-| Plan | Name | Wave | Status | Notes |
-|------|------|------|--------|-------|
-| 01-01 | Scaffold + Vitest setup | 1 | ✅ Complete | pnpm build ✅, vitest 2/2 ✅, code review fixes applied |
-| 01-02 | Zod types + Zustand store + localStorage adapter | 2 | ⏸ Interrupted at start | Not started |
-| 01-03 | Three-panel responsive layout | 2 | ⏸ Not started | Depends on 01-01 only (parallel with 01-02) |
+| Phase | Plan | Name | Status |
+|-------|------|------|--------|
+| 01 | 01-01 | Scaffold + Vitest setup | ✅ Complete |
+| 01 | 01-02 | Zod types + Zustand store + localStorage | ✅ Complete |
+| 01 | 01-03 | Three-panel responsive layout | ✅ Complete |
+| 02 | 02-01 | Sample resume + autosave hook | ✅ Complete |
+| 02 | 02-02 | Tiptap resume editor (all sections + CRUD) | ✅ Complete |
+| 02 | 02-03 | PDF template + preview + export | ✅ Complete |
+| 02 | 02-04 | Integration + autosave wiring + human verify | ✅ Complete |
 
-## What Was Built (Plan 01-01)
+## What Was Built (Phase 2)
 
-- Next.js 16.2.3 scaffolded with App Router, TypeScript, Tailwind CSS v4
-- Core deps installed: zustand 5.0.12, zod 4.3.6, immer 11.1.4, react-resizable-panels 4.10.0, lucide-react 1.8.0
-- shadcn/ui initialized; resizable, tabs, separator, tooltip components added
-- Tailwind v4 CSS-first config: `@import "tailwindcss"` + `@theme` with design tokens
-- Inter font wired via `var(--font-inter)` CSS variable
-- Vitest configured: jsdom, globals, path aliases, localStorage mock, smoke tests passing
-- .prettierrc with prettier-plugin-tailwindcss
-- Code review issues fixed: font-mono fallback, circular CSS var, shadcn moved to devDeps, localStorage mock configurable
+- **ResumeEditor**: Tiptap prose for Summary + plain inputs for Contact/Experience/Education/Skills; full add/delete CRUD per section; skill tokenization (Enter/comma → Badge chip)
+- **PDF preview**: `@react-pdf/renderer` ModernCleanTemplate with Inter font, single-column Letter layout; `usePDF` hook with 800ms debounce driving live preview via `react-pdf`
+- **Export**: ExportPdfButton downloads blob as `{name}.pdf`; text-selectable, ATS-friendly, no watermark
+- **Autosave**: `useAutosave` fires every 10s; `SavedIndicator` chip flashes in AppHeader for 2s on each save
+- **Bootstrap**: `ResumeBootstrap` hydrates store from localStorage or falls back to SAMPLE_RESUME (Alex Johnson) on first load
+- **Layout wiring**: DesktopLayout (JD | Editor | Preview), MobileLayout (JD / Editor / Preview tabs)
+- **114 tests passing**, build clean, lint clean
 
 ## Next Actions
 
-Resume by executing Plan 01-02 (Wave 2 — runs in parallel-capable with 01-03):
-
-1. **Plan 01-02** — Zod schemas for all data models, Zustand store with 5 slices (resume/jobDescription/keywords/score/ui), localStorage StorageAdapter. TDD approach, 3 tasks.
-2. **Plan 01-03** — Three-panel desktop layout + mobile tabbed layout + app header + placeholders. Ends with human visual verification gate.
-
-Both plans work from: C:/Projects/Rese/.worktrees/phase-01
+Start Phase 3 — Job Description + ATS Scoring:
+1. Run `/gsd-plan-phase` or `/gsd-execute-phase` for Phase 03
+2. Create worktree: `git worktree add .worktrees/phase-03 -b feature/phase-03`
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 4
-- Total execution time: ~2 hours (Plan 01-01 including review/fix cycles)
+- Total plans completed: 7
+- Total execution time: ~4 hours across Phase 1 + Phase 2
 
 **By Phase:**
 
 | Phase | Plans Complete | Plans Total |
 |-------|---------------|-------------|
-| Phase 1 | 1 | 3 |
+| Phase 1 | 3 | 3 |
+| Phase 2 | 4 | 4 |
 
 ## Accumulated Context
 
@@ -88,12 +89,11 @@ Both plans work from: C:/Projects/Rese/.worktrees/phase-01
 - Roadmap: 7 phases derived from 59 requirements across 12 categories. M1 = Phases 1-4, M2 = Phases 5-7.
 - Roadmap: Editor + PDF grouped together (Phase 2) since they form one verifiable user workflow.
 - Roadmap: AI suggestions + error handling + accessibility grouped (Phase 4) as the "resilience and polish" layer completing M1.
-- Execution: Using git worktree at .worktrees/phase-01 on branch feature/phase-01-foundation-layout for isolation.
+- Execution: Using git worktrees per phase for isolation (`.worktrees/phase-XX`).
 - Execution: Subagent-driven development (implementer → spec review → code quality review per task).
-
-### Pending Todos
-
-- Create .planning/phases/01-foundation-layout/01-01-SUMMARY.md (post-completion artifact per plan spec)
+- [Phase 02]: Bullets use plain text inputs (not per-entry Tiptap mounts) to avoid sync feedback loops.
+- [Phase 02]: Zod ExperienceSchema refine invariant preserved via two-branch handleCurrentChange handler.
+- [Phase 02]: PDF bullet alignment uses flex-row layout (bulletMark + bulletText) for correct wrap indentation.
 
 ### Blockers/Concerns
 
@@ -102,6 +102,6 @@ Both plans work from: C:/Projects/Rese/.worktrees/phase-01
 
 ## Session Continuity
 
-Last session: 2026-04-22T06:24:36.982Z
-Stopped at: Phase 2 UI-SPEC approved
-Resume by: Running Plan 01-02 implementer subagent in worktree C:/Projects/Rese/.worktrees/phase-01
+Last session: 2026-04-27
+Stopped at: Phase 2 complete — merged feature/phase-02 to main, worktree removed
+Resume by: Planning or executing Phase 3 (Job Description input + ATS scoring engine)

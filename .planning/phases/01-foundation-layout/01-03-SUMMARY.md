@@ -2,100 +2,73 @@
 phase: 01-foundation-layout
 plan: 03
 subsystem: ui
-tags: [react, tailwindcss, react-resizable-panels, responsive, layout, shadcn]
+tags: [react, nextjs, tailwind, shadcn, resizable-panels, responsive-layout, accessibility]
 
 requires:
   - phase: 01-01
-    provides: Next.js scaffold, shadcn/ui resizable + tabs components, Tailwind v4
+    provides: Next.js 16 scaffold with shadcn/ui initialized, resizable + tabs components installed
+
 provides:
-  - Three-panel desktop layout with drag-resizable panels (27/46/27 default proportions)
-  - Tabbed mobile layout (JD / Editor / Score tabs, Editor default active)
-  - AppHeader component with Rese branding
-  - PanelPlaceholder component (icon + heading + body) for each panel
-  - use-media-query hook for responsive breakpoint detection
-  - Responsive switch at 1024px via EditorLayout orchestrator
+  - Responsive three-panel layout (desktop: resizable side-by-side; mobile: tabbed navigation)
+  - AppHeader with "Rese" brand
+  - PanelPlaceholder reusable component
+  - useMediaQuery hook (SSR-safe, returns boolean | undefined)
+  - Full viewport h-dvh layout shell ready for downstream content
+
 affects: [02-resume-editor-pdf, 03-job-description-ats-scoring]
 
 tech-stack:
   added: []
-  patterns: [EditorLayout as responsive orchestrator switching DesktopLayout/MobileLayout, PanelPlaceholder as shared placeholder component, use-media-query with SSR-safe default]
+  patterns:
+    - EditorLayout as responsive orchestrator (returns null on SSR, then resolves to desktop or mobile)
+    - PanelPlaceholder as Server Component (no 'use client' needed for pure rendering)
+    - aria-labelledby + semantic h2 for panel section labeling (avoids duplicate screen reader announcements)
 
 key-files:
-  created: [src/components/layout/editor-layout.tsx, src/components/layout/app-header.tsx, src/components/layout/panel-placeholder.tsx, src/components/layout/desktop-layout.tsx, src/components/layout/mobile-layout.tsx, src/hooks/use-media-query.ts]
-  modified: [src/app/page.tsx]
+  created:
+    - src/hooks/use-media-query.ts
+    - src/components/layout/panel-placeholder.tsx
+    - src/components/layout/app-header.tsx
+    - src/components/layout/desktop-layout.tsx
+    - src/components/layout/mobile-layout.tsx
+    - src/components/layout/editor-layout.tsx
+  modified:
+    - src/app/page.tsx
 
 key-decisions:
-  - "EditorLayout orchestrates responsive switch — renders DesktopLayout or MobileLayout based on use-media-query"
-  - "Desktop panels use react-resizable-panels with defaultSize 27/46/27"
-  - "Mobile uses shadcn Tabs with 3 tabs; Editor tab active by default"
-  - "Active tab pill background suppressed in mobile nav (transparent, underline-only active state)"
-  - "'use client' removed from PanelPlaceholder — it's a pure server component"
-  - "Panel h2 elements use aria-labelledby for accessibility compliance"
+  - "react-resizable-panels uses orientation='horizontal' not direction='horizontal' in this version"
+  - "tabs.tsx wraps base-ui (not Radix) — active state is data-active, not data-[state=active]"
+  - "Active tab: data-active:bg-transparent overrides base component's pill style, leaving only border-b-2 indicator"
+  - "PanelPlaceholder is a Server Component — no 'use client' needed for pure render components"
+  - "Desktop panels use aria-labelledby + h2; mobile panels use aria-labelledby + sr-only h2 (tab label is the visible heading)"
 
 patterns-established:
-  - "Layout: EditorLayout is the single entry point — callers never import Desktop/MobileLayout directly"
-  - "Responsive: use-media-query returns SSR-safe default (false) to prevent hydration mismatch"
-  - "Panels: each panel has a semantic <section aria-labelledby> wrapping its content"
+  - "Pattern: useMediaQuery returns undefined during SSR, EditorLayout returns null — prevents hydration mismatch"
+  - "Pattern: h-dvh on root, flex-1 overflow-hidden on main — full viewport without double scrollbars"
 
 requirements-completed: [FNDN-02]
 
-duration: ~1h
-completed: 2026-04-14
+duration: 30min
+completed: 2026-04-21
 ---
 
-# Plan 01-03: Three-Panel Responsive Layout Summary
+# Phase 01 Plan 03: Three-Panel Layout Summary
 
-**Three-panel desktop layout with drag-resizable dividers and tabbed mobile layout — responsive switch at 1024px, all panels accessible with ARIA labels**
+**Delivered the responsive application shell: resizable three-panel desktop layout (27/46/27) and tabbed mobile navigation, with instructional placeholders, semantic ARIA, and a minimal "Rese" header — 55 tests still passing, build clean.**
 
 ## Performance
 
-- **Duration:** ~1h
-- **Completed:** 2026-04-14
-- **Tasks:** 3
-- **Files modified:** 7
+- **Duration:** ~30 min
+- **Completed:** 2026-04-21
+- **Tasks:** 3/3 complete
+- **Files modified:** 7 created, 1 modified
 
 ## Accomplishments
-- Desktop: three side-by-side panels (JD input / Editor / ATS Score) with drag-resizable dividers via react-resizable-panels, default proportions 27/46/27
-- Mobile: tabbed navigation via shadcn Tabs, three tabs (Job Description / Editor / Score), Editor active by default
-- EditorLayout orchestrates responsive switch at 1024px breakpoint
-- AppHeader with Rese branding at top of viewport
-- PanelPlaceholder with lucide-react icon, heading, and body text for each panel
-- Accessibility: `<section aria-labelledby>` wrapping each panel, h2 ids wired via aria-labelledby
-- Post-review: `use client` removed from PanelPlaceholder (unnecessary), active tab pill background suppressed
 
-## Task Commits
+- **Desktop layout**: Three `ResizablePanel` at 27/46/27 default proportions (min 15/20/15) with drag handles. `react-resizable-panels` uses `orientation` not `direction` in this version — caught and fixed during implementation.
 
-1. **Task 1: Desktop layout + app header** - `7ecffdb` (feat)
-2. **Task 1 fix: accessibility + client directive** - `8c203de` (fix)
-3. **Task 2: Mobile tabbed layout** - `8d9db66` (feat)
-4. **Task 2 fix: suppress active tab background** - `2a9698d` (fix)
+- **Mobile layout**: shadcn/base-ui `Tabs` with three tabs (Job Description, Editor, Score), defaulting to Editor. Active tab uses bottom-border indicator (`data-active:border-b-2 data-active:border-primary`) with pill background suppressed via `data-active:bg-transparent`.
 
-## Files Created/Modified
-- `src/components/layout/editor-layout.tsx` — Responsive orchestrator, switches Desktop/Mobile at 1024px
-- `src/components/layout/desktop-layout.tsx` — react-resizable-panels three-panel layout
-- `src/components/layout/mobile-layout.tsx` — shadcn Tabs three-tab layout
-- `src/components/layout/app-header.tsx` — Rese branding header
-- `src/components/layout/panel-placeholder.tsx` — Reusable placeholder (icon + heading + body)
-- `src/hooks/use-media-query.ts` — SSR-safe media query hook
-- `src/app/page.tsx` — Wires AppHeader + EditorLayout into root page
+- **Accessibility**: All panel sections use `aria-labelledby` + semantic `<h2>` (visible on desktop, `sr-only` on mobile where the tab trigger is the visible heading). No duplicate screen reader announcements.
 
-## Decisions Made
-- `use client` removed from PanelPlaceholder — pure render, no browser APIs needed
-- Active tab underline-only (no pill background) — cleaner visual hierarchy
-- aria-labelledby on section elements rather than aria-label (references visible h2 text)
-
-## Deviations from Plan
-None — post-review accessibility and styling fixes applied within the plan cycle.
-
-## Issues Encountered
-- Initial mobile tab had pill background on active tab — suppressed via Tailwind class override
-- PanelPlaceholder initially had unnecessary `use client` directive — removed
-
-## Next Phase Readiness
-- Three-panel shell ready for Phase 2 to fill with real Tiptap editor, PDF preview, and JD input
-- Panel proportions and resize behavior verified in browser
-- Mobile tab structure ready for real content components
-
----
-*Phase: 01-foundation-layout*
-*Completed: 2026-04-14*
+- **SSR safety**: `useMediaQuery` returns `undefined` server-side; `EditorLayout` returns `null` until client resolves. Prevents hydration mismatch.
