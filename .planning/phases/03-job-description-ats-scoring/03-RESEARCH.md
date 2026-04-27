@@ -1385,22 +1385,16 @@ Phase 3 introduces the first external API calls and the first user secret (API k
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED 2026-04-27)
 
 1. **Which weight set is authoritative — DESIGN.md or ROADMAP SCORE-02?**
-   - What we know: DESIGN.md §ATS Scoring Algorithm: hard=0.35, preferred=0.20, tools=0.15, soft=0.10, formatting=0.20. ROADMAP SCORE-02: hard=40%, preferred=20%, tools=20%, soft=10%, formatting=10%.
-   - What's unclear: Both sum to 100%, but formatting is 20% vs 10% — a large difference. ROADMAP SCORE-02 was written more recently.
-   - Recommendation: Use ROADMAP SCORE-02 weights (hard=40, preferred=20, tools=20, soft=10, formatting=10) since SCORE-02 is the Phase 3 authoritative spec. Update DESIGN.md during Phase 3 to match. Flag to user in first plan task.
+   - **RESOLVED: ROADMAP SCORE-02** — hard=40%, preferred=20%, tools=20%, soft=10%, formatting=10%. Formatting is a near-binary hygiene check; 20% overstates it. Implemented in 03-02-PLAN.md WEIGHTS const.
 
 2. **Should keyword extraction auto-trigger on paste, or require a button click?**
-   - What we know: UI-SPEC from Phase 2 session references a "Paste and extract" flow. JDSC-02 doesn't specify the trigger mechanism.
-   - What's unclear: Auto-extraction on paste is better UX (fewer clicks) but burns an API call if the user pastes and immediately edits. A button ("Extract Keywords") is safer but adds friction.
-   - Recommendation: Auto-trigger extraction 1.5 seconds after the user stops typing in the JD textarea (debounced), IF an API key is configured. The extract button serves as a manual re-trigger. This is the recommended UX.
+   - **RESOLVED: Button click only** ("Extract Keywords"). LLM calls cost API credits; users paste and edit JD text multiple times. Intentional trigger avoids wasted calls. Implemented in 03-01-PLAN.md.
 
 3. **Does the right panel start on "Preview" or "Score" tab by default?**
-   - What we know: Phase 2 established `<PdfPreviewPanel>` as the full right panel. Phase 3 adds the Score tab.
-   - What's unclear: The score is the central feature of Phase 3. Should it be the default visible tab?
-   - Recommendation: Default to "Score" tab on Phase 3. Change to "Preview" for PDF export when the user clicks the export button. Or keep "Preview" as default to preserve Phase 2 behavior and let the "wow moment" of the PDF be the first view. Planner's discretion.
+   - **RESOLVED: Score tab default.** The live score is the core value prop and visual hook. PDF preview is one click away. Implemented in 03-03-PLAN.md as `defaultValue="score"`.
 
 ---
 
