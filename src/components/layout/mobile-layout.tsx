@@ -1,9 +1,8 @@
 'use client'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { PanelPlaceholder } from './panel-placeholder'
-import { FileText } from 'lucide-react'
 import { ResumeEditor } from '@/components/editor/resume-editor'
 import { PdfPreviewPanel } from '@/components/pdf/pdf-preview-panel'
+import { JdInputPanel } from '@/components/jd-panel/jd-input-panel'
 
 export function MobileLayout() {
   const triggerCls =
@@ -25,11 +24,7 @@ export function MobileLayout() {
       <TabsContent value="jd" className="flex-1 overflow-y-auto mt-0">
         <section aria-labelledby="mobile-jd-heading" className="h-full">
           <h2 id="mobile-jd-heading" className="sr-only">Job Description</h2>
-          <PanelPlaceholder
-            icon={FileText}
-            heading="Paste a job description"
-            body="Paste the full job posting here. Keywords will be extracted automatically to score your resume."
-          />
+          <JdInputPanel />
         </section>
       </TabsContent>
 

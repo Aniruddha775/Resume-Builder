@@ -1,9 +1,8 @@
 'use client'
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable'
-import { PanelPlaceholder } from './panel-placeholder'
-import { FileText } from 'lucide-react'
 import { ResumeEditor } from '@/components/editor/resume-editor'
 import { PdfPreviewPanel } from '@/components/pdf/pdf-preview-panel'
+import { JdInputPanel } from '@/components/jd-panel/jd-input-panel'
 
 export function DesktopLayout() {
   return (
@@ -14,11 +13,7 @@ export function DesktopLayout() {
             <h2 id="jd-panel-heading" className="text-[13px] font-semibold text-foreground">Job Description</h2>
           </div>
           <div className="flex-1">
-            <PanelPlaceholder
-              icon={FileText}
-              heading="Paste a job description"
-              body="Paste the full job posting here. Keywords will be extracted automatically to score your resume."
-            />
+            <JdInputPanel />
           </div>
         </section>
       </ResizablePanel>
