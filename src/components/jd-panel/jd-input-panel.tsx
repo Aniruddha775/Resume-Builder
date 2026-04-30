@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { useAppStore } from '@/lib/store'
 import { extractKeywords } from '@/lib/ai/extract-keywords'
+import type { ExtractionErrorCode } from '@/lib/ai/extract-keywords'
 import { loadApiKeyConfig } from '@/lib/ai/api-key-store'
 import { JdTextarea } from './jd-textarea'
 import { KeywordChips } from './keyword-chips'
@@ -11,7 +12,6 @@ import { Button } from '@/components/ui/button'
 import { Loader2, Key } from 'lucide-react'
 
 type ExtractionStatus = 'idle' | 'extracting' | 'done' | 'error'
-type ExtractionErrorCode = 'NO_API_KEY' | 'INVALID_KEY' | 'RATE_LIMITED' | 'PROVIDER_ERROR' | 'NETWORK_ERROR' | 'JD_TOO_SHORT'
 
 const ERROR_MESSAGES: Record<ExtractionErrorCode, string> = {
   NO_API_KEY:     'Add an API key to extract keywords.',
@@ -34,6 +34,11 @@ export function JdInputPanel() {
   const [status, setStatus] = useState<ExtractionStatus>('idle')
   const [errorCode, setErrorCode] = useState<ExtractionErrorCode | null>(null)
   const [showApiKeyModal, setShowApiKeyModal] = useState(false)
+  const [hasApiKey, setHasApiKey] = useState(false)
+
+  useEffect(() => {
+    setHasApiKey(loadApiKeyConfig() !== null)
+  }, [showApiKeyModal])
 
   const rawText = jobDescription?.rawText ?? ''
 
@@ -42,7 +47,7 @@ export function JdInputPanel() {
       setJobDescription({
         id: jobDescription?.id ?? crypto.randomUUID(),
         rawText: text,
-        pastedAt: new Date().toISOString(),
+        pastedAt: jobDescription?.pastedAt ?? new Date().toISOString(),
         extractedKeywords: null,
       })
     },
@@ -70,15 +75,13 @@ export function JdInputPanel() {
 
     if ('error' in result) {
       setStatus('error')
-      setErrorCode(result.error as ExtractionErrorCode)
+      setErrorCode(result.error ?? null)
       return
     }
 
     setKeywords(result.keywords)
     setStatus('done')
-  }, [rawText, setKeywords])
-
-  const hasApiKey = typeof window !== 'undefined' && loadApiKeyConfig() !== null
+  }, [rawText, setKeywords, setStatus, setErrorCode])
 
   return (
     <div className="flex flex-col h-full p-4 gap-3 overflow-y-auto">
@@ -121,12 +124,14 @@ export function JdInputPanel() {
       {!hasApiKey && rawText.length >= 50 && status === 'idle' && (
         <p className="text-[11px] text-muted-foreground" aria-live="polite">
           Configure an API key to extract keywords.{' '}
-          <button
-            className="underline text-foreground"
+          <Button
+            variant="link"
+            size="sm"
+            className="inline p-0 h-auto"
             onClick={() => setShowApiKeyModal(true)}
           >
             Configure
-          </button>
+          </Button>
         </p>
       )}
 

@@ -9,10 +9,10 @@ export function DesktopLayout() {
     <ResizablePanelGroup orientation="horizontal" className="h-full">
       <ResizablePanel defaultSize={27} minSize={15}>
         <section aria-labelledby="jd-panel-heading" className="flex h-full flex-col overflow-y-auto">
-          <div className="px-4 py-3">
+          <div className="px-4 py-3 bg-muted border-b border-border">
             <h2 id="jd-panel-heading" className="text-[13px] font-semibold text-foreground">Job Description</h2>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 overflow-hidden">
             <JdInputPanel />
           </div>
         </section>

@@ -48,6 +48,7 @@ export function ApiKeyModal({ open, onClose }: ApiKeyModalProps) {
   const handleRemove = () => {
     clearApiKeyConfig()
     setKey('')
+    setProvider('openai')
     onClose()
   }
 
