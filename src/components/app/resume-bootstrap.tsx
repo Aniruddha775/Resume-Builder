@@ -5,6 +5,7 @@ import { createStorageAdapter } from '@/lib/storage/adapter'
 import { SAMPLE_RESUME } from '@/data/sample-resume'
 import { useAutosave } from '@/hooks/use-autosave'
 import { useHydration } from '@/hooks/use-hydration'
+import { useAtsScore } from '@/hooks/use-ats-score'
 
 export function ResumeBootstrap({ children }: { children: React.ReactNode }) {
   const hydrated = useHydration()
@@ -33,6 +34,7 @@ export function ResumeBootstrap({ children }: { children: React.ReactNode }) {
   useAutosave(() => {
     bumpLastSaved()
   })
+  useAtsScore()
 
   return <>{children}</>
 }
