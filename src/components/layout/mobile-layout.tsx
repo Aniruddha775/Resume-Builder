@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ResumeEditor } from '@/components/editor/resume-editor'
 import { PdfPreviewPanel } from '@/components/pdf/pdf-preview-panel'
 import { JdInputPanel } from '@/components/jd-panel/jd-input-panel'
+import { ScorePanel } from '@/components/score-panel/score-panel'
 
 export function MobileLayout() {
   const triggerCls =
@@ -19,6 +20,7 @@ export function MobileLayout() {
         <TabsTrigger value="preview" className={triggerCls}>
           Preview
         </TabsTrigger>
+        <TabsTrigger value="score" className={triggerCls}>Score</TabsTrigger>
       </TabsList>
 
       <TabsContent value="jd" className="flex-1 overflow-y-auto mt-0">
@@ -39,6 +41,13 @@ export function MobileLayout() {
         <section aria-labelledby="mobile-preview-heading" className="h-full">
           <h2 id="mobile-preview-heading" className="sr-only">Preview</h2>
           <PdfPreviewPanel />
+        </section>
+      </TabsContent>
+
+      <TabsContent value="score" className="flex-1 overflow-y-auto mt-0">
+        <section aria-labelledby="mobile-score-heading" className="h-full">
+          <h2 id="mobile-score-heading" className="sr-only">ATS Score</h2>
+          <ScorePanel />
         </section>
       </TabsContent>
     </Tabs>
